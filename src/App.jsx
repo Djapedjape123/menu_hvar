@@ -3,17 +3,12 @@ import { categories, menuData } from './data'
 import './App.css'
 
 function App() {
-  // 1. Dodajemo stanje za jezik (početni je 'hr')
   const [lang, setLang] = useState('hr')
-  
-  // 2. Aktivna kategorija sada prati ID umesto imena (npr. 'dorucak')
   const [activeCategoryId, setActiveCategoryId] = useState(categories[0].id)
-  
-  // 3. Filtriranje se sada radi po categoryId
   const filteredItems = menuData.filter(item => item.categoryId === activeCategoryId)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-white to-emerald-50 font-sans text-gray-800 pb-12">
+    <div className="min-h-screen mesh-bg font-sans text-gray-800 pb-12 overflow-x-hidden">
       
       {/* 1. HEADER / HERO SEKCIJA */}
       <header className="bg-white pt-14 pb-8 px-4 text-center rounded-b-[2.5rem] shadow-sm relative z-20">
@@ -54,7 +49,7 @@ function App() {
         <div className="flex space-x-3 overflow-x-auto whitespace-nowrap hide-scrollbar px-5 pb-2 snap-x">
           {categories.map((category) => (
             <button
-              key={category.id} // Koristimo ID umesto celog objekta
+              key={category.id} 
               onClick={() => setActiveCategoryId(category.id)}
               className={`snap-center px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-300 ease-in-out border ${
                 activeCategoryId === category.id
@@ -62,7 +57,6 @@ function App() {
                   : 'bg-white text-emerald-700 border-emerald-100 hover:bg-emerald-50'
               }`}
             >
-              {/* Ispisujemo ime kategorije zavisno od jezika */}
               {category[lang]}
             </button>
           ))}
@@ -71,16 +65,28 @@ function App() {
       </nav>
 
       {/* 3. PRIKAZ JELA ZA IZABRANU KATEGORIJU */}
-      <main className="px-4 mt-8 max-w-2xl mx-auto space-y-5 animate-fade-in">
-        {filteredItems.map((item) => (
+      {/* Uklonili smo animate-fade-in odavde jer sada svako jelo ima svoju animaciju */}
+      <main className="px-4 mt-8 max-w-2xl mx-auto space-y-5">
+        
+        {/* OBAVEŠTENJE ZA DORUČAK - Dodali smo i njemu item-enter da lepo uđe */}
+        {activeCategoryId === 'dorucak' && (
+          <div className="item-enter bg-emerald-100/80 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-2xl text-center text-sm font-extrabold tracking-widest shadow-sm mb-2">
+            🕒 {lang === 'hr' ? 'DORUČAK SE SLUŽI DO 13H' : 'BREAKFAST IS SERVED UNTIL 1 PM'}
+          </div>
+        )}
+
+        {/* Izvukli smo INDEX ovde */}
+        {filteredItems.map((item, index) => (
           <div 
             key={item.id} 
-            className="bg-white/80 backdrop-blur-sm p-4 rounded-3xl shadow-sm border border-white flex gap-4 transition-transform active:scale-[0.98]"
+            // Dodali smo 'item-enter' klasu i dinamički style za kašnjenje
+            className="item-enter bg-white/80 backdrop-blur-sm p-4 rounded-3xl shadow-sm border border-white flex gap-4 transition-transform active:scale-[0.98]"
+            style={{ animationDelay: `${index * 0.08}s` }}
           >
             <div className="w-24 h-24 bg-emerald-50 rounded-2xl overflow-hidden flex-shrink-0 shadow-inner p-1">
               <img 
                 src={item.image} 
-                alt={item.title[lang]} // Alt tag na pravom jeziku
+                alt={item.title[lang]} 
                 className="w-full h-full object-cover rounded-xl" 
                 loading="lazy" 
               />
@@ -89,7 +95,6 @@ function App() {
             <div className="flex-1 flex flex-col justify-center">
               <div className="flex justify-between items-start">
                 <h3 className="font-bold text-lg text-emerald-900 leading-tight">
-                  {/* Naslov jela na izabranom jeziku */}
                   {item.title[lang]}
                 </h3>
                 <span className="font-extrabold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-xl ml-2 text-sm border border-emerald-100">
@@ -97,14 +102,12 @@ function App() {
                 </span>
               </div>
               
-              {/* Opis (sastojci) na izabranom jeziku */}
               {item.description && item.description[lang] && (
                 <p className="text-sm text-gray-500 mt-1.5 leading-snug">
                   {item.description[lang]}
                 </p>
               )}
               
-              {/* Dodatna napomena na izabranom jeziku */}
               {item.note && item.note[lang] && (
                 <p className="text-xs text-emerald-600/70 mt-2 font-medium bg-emerald-50/50 inline-block px-2 py-1 rounded-md">
                   {item.note[lang]}
@@ -116,7 +119,7 @@ function App() {
       </main>
 
       {/* 4. FOOTER */}
-      <footer className="mt-16 text-center text-emerald-700/40 text-xs font-medium uppercase tracking-widest">
+      <footer className="mt-16 text-center text-emerald-700/40 text-xs font-medium uppercase tracking-widest pb-6">
         <p>Hvar, 2026 • Lime Bar Digital</p>
       </footer>
 
