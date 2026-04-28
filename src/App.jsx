@@ -8,10 +8,11 @@ function App() {
   const filteredItems = menuData.filter(item => item.categoryId === activeCategoryId)
 
   return (
-    <div className="min-h-screen mesh-bg font-sans text-gray-800 pb-12 overflow-x-hidden">
+    /* OBRISANO: overflow-x-hidden kako bi 'sticky' mogao da radi */
+    <div className="min-h-screen mesh-bg font-sans text-gray-800 pb-12">
 
       {/* 1. HEADER / HERO SEKCIJA */}
-      <header className="bg-white pt-14 pb-8 px-4 text-center rounded-b-[2.5rem] shadow-sm relative z-20">
+      <header className="bg-white pt-14 pb-8 px-4 text-center rounded-[2.5rem] shadow-sm relative z-20">
 
         {/* ZASTAVICE ZA PROMENU JEZIKA */}
         <div className="absolute top-4 right-4 flex gap-3 bg-gray-50 px-3 py-2 rounded-full shadow-inner border border-gray-100">
@@ -33,7 +34,7 @@ function App() {
           Lime
         </h1>
         <p className="text-emerald-800/60 mt-2 text-xs uppercase tracking-[0.4em] font-bold">
-          {lang === 'hr' ? 'Bar & Restaurant' : 'Bar & Restaurant'}
+          {lang === 'hr' ? 'Bar & Restoran' : 'Bar & Restaurant'}
         </p>
         <p className="text-emerald-400 mt-2 text-xs uppercase tracking-[0.3em] font-bold">
           {lang === 'hr' ? 'Ljetno izdanje 2026' : 'Summer Edition 2026'}
@@ -41,7 +42,8 @@ function App() {
       </header>
 
       {/* 2. STICKY NAVIGACIJA ZA KATEGORIJE */}
-      <nav className="sticky top-0 z-10 pt-4 pb-3 bg-white/70 backdrop-blur-lg border-b border-emerald-100 shadow-sm">
+      {/* DODATO: z-50 da bi navigacija uvijek bila iznad skrolovanih jela */}
+      <nav className="sticky top-0 z-50 pt-4 pb-3 bg-white/70 backdrop-blur-lg border-b border-emerald-100 shadow-sm">
 
         <div className="flex justify-center items-center mb-3">
           <p className="text-[10px] text-emerald-500/80 uppercase tracking-widest font-bold flex items-center gap-2 animate-pulse">
@@ -67,22 +69,19 @@ function App() {
       </nav>
 
       {/* 3. PRIKAZ JELA ZA IZABRANU KATEGORIJU */}
-      {/* Uklonili smo animate-fade-in odavde jer sada svako jelo ima svoju animaciju */}
       <main className="px-4 mt-8 max-w-2xl mx-auto space-y-5">
 
-        {/* OBAVEŠTENJE ZA DORUČAK - Dodali smo i njemu item-enter da lepo uđe */}
+        {/* OBAVEŠTENJE ZA DORUČAK */}
         {activeCategoryId === 'dorucak' && (
           <div className="item-enter bg-emerald-100/80 border border-emerald-200 text-emerald-800 px-4 py-3 rounded-2xl text-center text-sm font-extrabold tracking-widest shadow-sm mb-2">
             🕒 {lang === 'hr' ? 'DORUČAK SE SLUŽI DO 13H' : 'BREAKFAST IS SERVED UNTIL 1 PM'}
           </div>
         )}
 
-        {/* Izvukli smo INDEX ovde */}
         {filteredItems.map((item, index) => (
           <div
             key={item.id}
-            // Dodali smo 'item-enter' klasu i dinamički style za kašnjenje
-            className="item-enter bg-white/80 backdrop-blur-sm p-4 rounded-3xl shadow-sm border border-white flex gap-4 transition-transform active:scale-[0.98]"
+            className="item-enter bg-white/80 backdrop-blur-sm p-4 rounded-3xl shadow-sm border border-gray-200 flex gap-4 transition-transform active:scale-[0.98]"
             style={{ animationDelay: `${index * 0.08}s` }}
           >
             <div className="w-24 h-24 bg-emerald-50 rounded-2xl overflow-hidden flex-shrink-0 shadow-inner p-1">
