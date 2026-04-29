@@ -120,7 +120,7 @@ function App() {
           5. MODAL ZA PRIKAZ DETALJA JELA (Bottom Sheet)
           ========================================= */}
       {selectedItem && (
-        <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center p-4 sm:p-0">
+        <div className="fixed inset-0 z-50 flex items-center justify-center  p-4 sm:p-0">
           
           {/* Zatamnjena pozadina iza modala (Klik zatvara modal) */}
           <div 
