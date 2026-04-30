@@ -3,12 +3,13 @@ import { categories, menuData } from './data'
 import './App.css'
 
 function App() {
+  // STANJE ZA JEZIK I AKTIVNU KATEGORIJU
   const [lang, setLang] = useState('hr')
   const [activeCategoryId, setActiveCategoryId] = useState(categories[0].id)
-  
+
   // DODATO: Stanje koje čuva podatke o jelu na koje je korisnik kliknuo
   const [selectedItem, setSelectedItem] = useState(null)
-  
+
   const filteredItems = menuData.filter(item => item.categoryId === activeCategoryId)
 
   return (
@@ -121,18 +122,19 @@ function App() {
           ========================================= */}
       {selectedItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center  p-4 sm:p-0">
-          
+
           {/* Zatamnjena pozadina iza modala (Klik zatvara modal) */}
-          <div 
+          <div
             className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity"
             onClick={() => setSelectedItem(null)}
           ></div>
-          
+
           {/* Glavni sadržaj modala */}
-          <div className="relative bg-white w-full max-w-md rounded-[2rem] sm:rounded-3xl overflow-hidden shadow-2xl animate-slide-up pb-8">
-            
+          {/* Glavni sadržaj modala - dodato max-h-[90vh] i overflow-y-auto */}
+          <div className="relative bg-white w-full max-w-md rounded-[2rem] sm:rounded-3xl shadow-2xl animate-slide-up pb-8 max-h-[90vh] overflow-y-auto hide-scrollbar">
+
             {/* Dugme za zatvaranje (X) */}
-            <button 
+            <button
               onClick={() => setSelectedItem(null)}
               className="absolute top-4 right-4 bg-white/80 backdrop-blur-md text-emerald-900 w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md z-10 hover:bg-white"
             >
@@ -141,9 +143,9 @@ function App() {
 
             {/* Velika slika jela u modalu */}
             <div className="w-full h-64 bg-emerald-50 relative">
-              <img 
-                src={selectedItem.image} 
-                alt={selectedItem.title[lang]} 
+              <img
+                src={selectedItem.image}
+                alt={selectedItem.title[lang]}
                 className="w-full h-full object-cover"
               />
               {/* Opcioni gradient preko slike da tekst ne bude odrezan vizuelno */}
@@ -160,13 +162,13 @@ function App() {
                   {selectedItem.price}
                 </span>
               </div>
-              
+
               {selectedItem.description && selectedItem.description[lang] && (
                 <p className="text-slate-500 text-base leading-relaxed mb-4">
                   {selectedItem.description[lang]}
                 </p>
               )}
-              
+
               {selectedItem.note && selectedItem.note[lang] && (
                 <div className="bg-emerald-50/50 border border-emerald-100 rounded-2xl p-4">
                   <p className="text-sm text-emerald-700 font-medium">

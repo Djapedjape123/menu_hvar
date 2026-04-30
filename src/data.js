@@ -1,4 +1,4 @@
-// data.js
+
 
 export const categories = [
   { id: 'dorucak', hr: "Doručak", en: "Breakfast" },
