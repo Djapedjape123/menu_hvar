@@ -22,7 +22,7 @@ export const menuData = [
     description: { hr: "3 jaja, pršut, rajčica, rukola, vrhnje", en: "3 eggs, prosciutto, tomato, arugula, cream" },
     note: { hr: "Način pripreme: omlet / na oko / kajgana", en: "Preparation: omelet / sunny side up / scrambled" },
     price: "0€",
-    image: "https://res.cloudinary.com/duomot4hp/image/upload/q_auto/f_auto/v1777827102/My%20Brand/logo_iefhsq.png"
+    image: "https://res.cloudinary.com/duomot4hp/image/upload/q_auto/f_auto/v1777831127/451761194_1232322477929111_3135065865094648165_n_vgtypk.jpg"
 
 
   },
