@@ -23,6 +23,8 @@ export const menuData = [
     note: { hr: "Način pripreme: omlet / na oko / kajgana", en: "Preparation: omelet / sunny side up / scrambled" },
     price: "0€",
     image: "/slike/placeholder.webp"
+
+    
   },
   {
     id: 2,
