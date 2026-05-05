@@ -3,10 +3,14 @@ import { categories, menuData } from './data'
 import './App.css'
 
 function App() {
+  // stanje za jezik
   const [lang, setLang] = useState('hr')
+  // stanje za aktivnu kategoriju i odabrani item
   const [activeCategoryId, setActiveCategoryId] = useState(categories[0].id)
+  // stanje za trenutno odabrani item za model da se otvori
   const [selectedItem, setSelectedItem] = useState(null)
 
+  // Efekt za kontrolu scrollanja pozadine kada je modal otvoren
   useEffect(() => {
     if (selectedItem) {
       document.body.style.overflow = 'hidden'
